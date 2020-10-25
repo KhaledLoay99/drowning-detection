@@ -1,15 +1,15 @@
 import cv2
-
 import numpy as np
-
 
 
 net = cv2.dnn.readNet('yolov3_training_last.weights', 'yolov3_testing.cfg')
 
 
+
 classes = []
 with open("classes.txt", "r") as f:
     classes = f.read().splitlines()
+
 
 
 cap = cv2.VideoCapture('test.mp4')
@@ -71,6 +71,6 @@ while True:
     if key==27:
         break
 
-
+    #key = cv2.waitKey()
 cap.release()
 cv2.destroyAllWindows()
