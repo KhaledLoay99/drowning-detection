@@ -6,6 +6,9 @@ net = cv2.dnn.readNet('yolov3_training_last.weights', 'yolov3_testing.cfg')
 
 
 
+
+
+
 classes = []
 with open("classes.txt", "r") as f:
     classes = f.read().splitlines()
