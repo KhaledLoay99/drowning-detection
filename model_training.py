@@ -1,15 +1,19 @@
 import cv2
 import numpy as np
 
+
 net = cv2.dnn.readNet('yolov3_training_last.weights', 'yolov3_testing.cfg')
+
 
 classes = []
 with open("classes.txt", "r") as f:
     classes = f.read().splitlines()
 
+
 cap = cv2.VideoCapture('test.mp4')
 font = cv2.FONT_HERSHEY_PLAIN
 colors = np.random.uniform(0, 255, size=(100, 3))
+
 
 while True:
     _, img = cap.read()
@@ -23,6 +27,8 @@ while True:
     boxes = []
     confidences = []
     class_ids = []
+
+
 
     for output in layerOutputs:
         for detection in output:
@@ -44,6 +50,8 @@ while True:
 
     indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.2, 0.4)
 
+
+
     if len(indexes)>0:
         for i in indexes.flatten():
             x, y, w, h = boxes[i]
@@ -53,10 +61,14 @@ while True:
             cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
             cv2.putText(img, label + " " + confidence, (x, y+20), font, 2, (255,255,255), 2)
 
+
+
+
     cv2.imshow('Image', img)
     key = cv2.waitKey(1)
     if key==27:
         break
+
 
 cap.release()
 cv2.destroyAllWindows()
